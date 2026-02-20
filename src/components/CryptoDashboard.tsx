@@ -115,8 +115,8 @@ function CryptoCard({ symbol, data }: { symbol: string; data: CryptoData }) {
                 {/* 24h badge */}
                 <div
                     className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${isPositive24h
-                            ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
-                            : "bg-red-500/15 text-red-400 border border-red-500/20"
+                        ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20"
+                        : "bg-red-500/15 text-red-400 border border-red-500/20"
                         }`}
                 >
                     {isPositive24h ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
@@ -233,7 +233,7 @@ export function CryptoDashboard() {
             {/* Section Header */}
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h2 className="text-sm font-bold text-white tracking-wider uppercase">
+                    <h2 className="text-xs font-bold text-zinc-400 tracking-widest uppercase">
                         Live Crypto Prices
                     </h2>
                     {lastFetched && (
@@ -286,8 +286,8 @@ export function CryptoDashboard() {
                 )}
             </AnimatePresence>
 
-            {/* Cards Grid */}
-            <div className="grid grid-cols-1 gap-4">
+            {/* Cards Grid — 3 columns on desktop to avoid vertical scroll */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {isLoading ? (
                     <>
                         <SkeletonCard />
