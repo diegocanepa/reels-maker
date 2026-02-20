@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useReelStore } from "@/store/useReelStore";
 import { ReelEditor } from "@/components/ReelEditor";
+import { CryptoDashboard } from "@/components/CryptoDashboard";
 
 export default function Home() {
   const { text, fontSize, backgroundColor, textColor } = useReelStore();
@@ -23,6 +24,17 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <ReelEditor />
+        </motion.div>
+      </div>
+
+      {/* Crypto Dashboard — right sidebar */}
+      <div className="absolute right-8 top-1/2 -translate-y-1/2 z-20 w-72">
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+        >
+          <CryptoDashboard />
         </motion.div>
       </div>
 
