@@ -1,75 +1,39 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useReelStore } from "@/store/useReelStore";
-import { ReelEditor } from "@/components/ReelEditor";
+import { motion } from "framer-motion";
 import { CryptoDashboard } from "@/components/CryptoDashboard";
 
 export default function Home() {
-  const { text, fontSize, backgroundColor, textColor } = useReelStore();
-
   return (
-    <div
-      className="flex min-h-screen items-center justify-center transition-colors duration-500 overflow-hidden relative"
-      style={{ backgroundColor }}
-    >
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/10 blur-[120px] rounded-full" />
+    <div className="flex min-h-screen items-center justify-center bg-zinc-950 overflow-hidden relative">
+      {/* Background glows */}
+      <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-orange-500/5 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-indigo-500/5 blur-[140px] rounded-full pointer-events-none" />
 
-      {/* Sidebar Editor */}
-      <div className="absolute left-8 top-1/2 -translate-y-1/2 z-20">
+      <main className="relative z-10 w-full max-w-6xl px-6 py-10">
+        {/* Page header */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mb-8 text-center"
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <ReelEditor />
+          <h1 className="text-2xl font-bold text-white tracking-tight">
+            Crypto Portfolio
+          </h1>
+          <p className="text-sm text-zinc-500 mt-1">
+            Live prices · Auto-refresh every 2 min
+          </p>
         </motion.div>
-      </div>
 
-      {/* Crypto Dashboard — right sidebar */}
-      <div className="absolute right-8 top-1/2 -translate-y-1/2 z-20 w-72">
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
         >
           <CryptoDashboard />
         </motion.div>
-      </div>
-
-      <main className="relative z-10 text-center px-4 w-full max-w-4xl">
-        <AnimatePresence mode="wait">
-          <motion.h1
-            key={text + fontSize + textColor}
-            className="font-extrabold tracking-tighter leading-tight"
-            style={{
-              fontSize: `${fontSize}px`,
-              color: textColor,
-            }}
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 1.1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            {text}
-          </motion.h1>
-        </AnimatePresence>
-
-        <motion.p
-          className="mt-6 text-zinc-400 text-lg md:text-xl font-medium tracking-wide opacity-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-        >
-          PREVIEW MODE
-        </motion.p>
       </main>
-
-      {/* Decorative elements */}
-      <div className="absolute bottom-8 right-8 text-zinc-500 text-xs font-mono uppercase tracking-[0.3em]">
-        Reels Maker v0.1
-      </div>
     </div>
   );
 }
