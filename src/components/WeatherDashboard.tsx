@@ -6,7 +6,6 @@ import {
   RefreshCw,
   Wifi,
   WifiOff,
-  Thermometer,
   Droplets,
   Wind,
   Sun,
