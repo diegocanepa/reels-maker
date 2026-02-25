@@ -4,12 +4,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CryptoDashboard } from "@/components/CryptoDashboard";
 import { WeatherDashboard } from "@/components/WeatherDashboard";
+import { NewsDashboard } from "@/components/NewsDashboard";
 
-type Tab = "crypto" | "weather";
+type Tab = "crypto" | "weather" | "news";
 
 const TABS: { id: Tab; label: string; emoji: string }[] = [
   { id: "crypto", label: "Crypto Data", emoji: "📈" },
   { id: "weather", label: "Weather Data", emoji: "🌤️" },
+  { id: "news", label: "World News", emoji: "📰" },
 ];
 
 export default function Home() {
@@ -20,7 +22,7 @@ export default function Home() {
       {/* Background glows */}
       <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-orange-500/5 blur-[140px] rounded-full pointer-events-none" />
       <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-indigo-500/5 blur-[140px] rounded-full pointer-events-none" />
-      {/* Weather-specific glow — only visible on weather tab */}
+      {/* Tab-specific ambient glows */}
       <AnimatePresence>
         {activeTab === "weather" && (
           <motion.div
@@ -30,6 +32,16 @@ export default function Home() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
             className="absolute top-1/4 right-1/3 w-[500px] h-[500px] bg-sky-500/5 blur-[140px] rounded-full pointer-events-none"
+          />
+        )}
+        {activeTab === "news" && (
+          <motion.div
+            key="news-glow"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-amber-500/5 blur-[140px] rounded-full pointer-events-none"
           />
         )}
       </AnimatePresence>
@@ -63,11 +75,10 @@ export default function Home() {
                 key={tab.id}
                 id={`tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeTab === tab.id
+                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${activeTab === tab.id
                     ? "text-white"
                     : "text-zinc-500 hover:text-zinc-300"
-                }`}
+                  }`}
               >
                 {/* Active pill */}
                 {activeTab === tab.id && (
@@ -93,7 +104,13 @@ export default function Home() {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35 }}
           >
-            {activeTab === "crypto" ? <CryptoDashboard /> : <WeatherDashboard />}
+            {activeTab === "crypto" ? (
+              <CryptoDashboard />
+            ) : activeTab === "weather" ? (
+              <WeatherDashboard />
+            ) : (
+              <NewsDashboard />
+            )}
           </motion.div>
         </AnimatePresence>
       </main>
